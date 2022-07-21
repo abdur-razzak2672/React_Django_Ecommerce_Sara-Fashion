@@ -1,13 +1,14 @@
-import React, { useEffect} from 'react'
+import React, { useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Button, Card } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Button, Card ,Form} from 'react-bootstrap'
 import  {listProductDetails}  from '../actions/productActions'
 import Rating from '../components/Rating'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
 function ProductScreen({match}) {
+    const[qty ,SetQty] = useState(1)
     const dispatch = useDispatch()
     const productDetails = useSelector(state => state.productDetails)
     const { loading, error, product } = productDetails
@@ -77,6 +78,41 @@ function ProductScreen({match}) {
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
+
+                            {product.countInStock > 0 && (
+                                <ListGroup.Item>
+                                <Row>
+                                    <Col>Qty :</Col>
+                                    <Col>
+                                        <Form.Control
+                                        as = "select"
+                                        value ={qty}
+                                        onchange = {(e) => SetQty(e.target.value)}
+                                        >
+                                            {
+                                                [...Array(product.countInStock).keys()].map(x)
+                                            }
+
+
+
+                                        </Form.Control>
+                                    
+                                    </Col>
+                                </Row>
+                            </ListGroup.Item>
+
+
+
+
+
+
+                            )}
+
+
+
+
+
+
                             <ListGroup.Item>
                                 <Button className = "btn btn-gray w-100" disabled = {product.countInStock === 0} type ="button">Add to Cart</Button>
                             </ListGroup.Item>
