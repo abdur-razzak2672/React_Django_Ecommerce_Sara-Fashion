@@ -7,6 +7,8 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 
 
+
+
 function CartScreen({match,location,history}){
     const productId = match.params.id
     const qty = location.search? Number(location.search.split('=')[1]):1
@@ -23,13 +25,9 @@ function CartScreen({match,location,history}){
     const cart = useSelector(state=>state.cart)
     const {cartItems} = cart
 
-
-
-    console.log("cartitems :",cartItems)
-
     return(
         <div>
-            cart
+            this is cart
         </div>
     )
 
