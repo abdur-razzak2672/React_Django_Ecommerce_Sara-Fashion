@@ -5,8 +5,8 @@ import { LinkContainer } from 'react-router-bootstrap'
 function Header() {
   return (
     <header>
-        <Navbar bg="dark" variant='dark'  expand="lg" collapseOnSelect>
-            <Container style={{ color: '#ffff' }}>
+        <Navbar bg="warning" variant='light'  expand="xl" collapseOnSelect>
+            <Container>
                 <LinkContainer to="/">
                     <Navbar.Brand >Sara Fashion</Navbar.Brand>
                 </LinkContainer>
@@ -31,16 +31,16 @@ function Header() {
                             className="me-2 w-50   rounded"
                             aria-label="Search"
                             />
-                            <Button className='btn btn-info rounded'>Search</Button>
+                            <Button className='btn btn-success rounded'>Search</Button>
                         </Form>
                     </Nav>
                     <div className="d-flex"  text='light'>
                         <LinkContainer to="/cart">
-                            <p className ="me-5"><i className = "fas fa-shopping-cart"></i>Cart</p>
+                            <Nav.Link><i className = "fas fa-shopping-cart"></i>Cart</Nav.Link>
                         </LinkContainer>
                             
                         <LinkContainer to="/login">
-                            <p><i className = "fas fa-user"></i>Login</p>
+                            <Nav.Link><i className = "fas fa-user"></i>Login</Nav.Link>
                         </LinkContainer>
                     </div>
                     
