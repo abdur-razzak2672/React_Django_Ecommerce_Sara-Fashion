@@ -90,8 +90,8 @@ function ProductScreen({match,history}) {
                                 <Row>
                                     <Col>Qty :</Col>
                                     <Col xs = 'auto' className='my-1'>
-                                        <Form.Control
-                                        as = 'select'
+                                        <select
+                                        className = "w-100 rounded"
                                         value ={qty}
                                         onChange = {(e) => setQty(e.target.value)}
                                         >
@@ -102,7 +102,7 @@ function ProductScreen({match,history}) {
                                                     </option>
                                                 ))
                                             }
-                                        </Form.Control>                
+                                        </select>                
                                     </Col>
                                 </Row>
                             </ListGroup.Item>
