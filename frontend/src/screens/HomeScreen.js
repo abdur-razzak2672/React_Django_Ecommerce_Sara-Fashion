@@ -29,7 +29,7 @@ function HomeScreen() {
         :error? <Message variant ='danger'>{error}</Message>
         :<Row>
           {products.map(product =>(
-              <Col key = {product._id} sm={12} md={6} lg={4} xl={3}>
+              <Col key = {product._id} sm={6} md={4} lg={3} xl={2}>
                   <Product product = {product}/>
               </Col>
             ))}
