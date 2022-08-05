@@ -1,13 +1,10 @@
 import React, { useState,useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Button, Card ,Form} from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Button} from 'react-bootstrap'
 import  {addToCart}  from '../actions/cartActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-import Product from '../components/Product';
-
-
 
 
 
@@ -31,6 +28,10 @@ function CartScreen({match,location,history}){
         console.log("remove from cart",id)
     }
 
+    const checkoutHandeler=()=>{
+        history.push('/signin?redirect=cart')
+    }
+
     return(
         <div>
             {loading? <Loader />
@@ -50,10 +51,11 @@ function CartScreen({match,location,history}){
                                         <ListGroup.Item key = {item.product}>
                                             <Row>
                                                 <Col md = {2}>
-                                                    <Image src = {item.image} alt ={item.name} fluid rounded/>
+                                                <Link to ={`/product/${item.product}`}><Image src = {item.image} alt ={item.name} fluid rounded/></Link>
+                                                    
                                                 </Col>
                                                 <Col md = {3}>
-                                                    <Link to ={`/product/${item.product}`}>{item.name}</Link>
+                                                    <Link className = "productName" to ={`/product/${item.product}`}>{item.name}</Link>
                                                 </Col>
                                                 <Col md = {2}>
                                                     ${item.price}
@@ -63,7 +65,7 @@ function CartScreen({match,location,history}){
                                                     <select
                                                     className = "w-100 rounded"
                                                     value ={item.qty}
-                                                    onChange = {(e) => dispatch(addToCart(item.product, e.target.value))}
+                                                    onChange = {(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
                                                     >
                                                         {
                                                             [...Array(item.countInStock).keys()].map((x) => (
@@ -81,18 +83,36 @@ function CartScreen({match,location,history}){
                                                     >
                                                         <i className = "fa fa-trash"></i>
                                                     </Button>
-
                                                 </Col>
                                             </Row>
                                         </ListGroup.Item>
                                     ))
-                                }
-                                
+                                }    
                             </ListGroup>
                     )}
                 </Col>
 
-                <Col md ={8}>
+                <Col md ={4}>
+                <h1 className = "mb-5 text-center">Order</h1>
+                <ListGroup variant = "flush">
+                    <ListGroup.Item>
+                        <p>Subtotal {cartItems.reduce((acc, item) =>  acc+item.qty ,0)} items added </p>
+                        <p>Total ${cartItems.reduce((acc, item) =>  acc+item.price * item.qty ,0).toFixed(2)}</p>
+
+                    </ListGroup.Item>
+                </ListGroup>
+                <ListGroup.Item>
+                    <Button
+                    type = "button"
+                    className = "btn btn-block w-100"
+                    disabled = {cartItems.length === 0}
+                    onClick = {checkoutHandeler}
+                    //onClick = {() => history.push('/signin?redirect=shipping')}
+
+                    >
+                    Process To Checkout
+                    </Button>
+                </ListGroup.Item>
 
                 </Col>
             </Row>  

@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 function Header() {
   return (
     <header>
-        <Navbar bg="warning" variant='light'  expand="xl" collapseOnSelect>
+        <Navbar className = "navItem" variant = "dark"  expand="xl" collapseOnSelect>
             <Container>
                 <LinkContainer to="/">
                     <Navbar.Brand >Sara Fashion</Navbar.Brand>
@@ -32,16 +32,17 @@ function Header() {
                             />
                             <Button className='btn btn-success rounded'>Search</Button>
                         </Form>
+                        
                     </Nav>
-                    <div className="d-flex"  text='light'>
-                        <LinkContainer to="/cart">
-                            <Nav.Link><i className = "fas fa-shopping-cart"></i>Cart</Nav.Link>
-                        </LinkContainer>
-                            
-                        <LinkContainer to="/login">
-                            <Nav.Link><i className = "fas fa-user"></i>Login</Nav.Link>
-                        </LinkContainer>
-                    </div>
+                    <div className="d-flex"  text='dark'>
+                            <LinkContainer variant = "dark" to="/cart">
+                                <Navbar.Brand><i className = "fas fa-shopping-cart"></i>Cart</Navbar.Brand>
+                            </LinkContainer>
+                                
+                            <LinkContainer to="/login">
+                                <Navbar.Brand><i className = "fas fa-user"></i>Login</Navbar.Brand>
+                            </LinkContainer>
+                        </div>
                     
                 </Navbar.Collapse>
             </Container>

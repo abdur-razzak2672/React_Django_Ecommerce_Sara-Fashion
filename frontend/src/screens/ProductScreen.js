@@ -34,22 +34,23 @@ function ProductScreen({match,history}) {
          :error
          ? <Message variant ='danger'>{error}</Message>
          :(
-            <Row>
-                <Col md={6}>
-                    <Image src={product.image} alt={product.name} fluid />
+            <Row >
+                <Col  sm ={12} md={7} lg={6} xl={7} >
+                    <Image src = {product.image} alt ={product.name} fluid rounded />              
+                    
                 </Col>
-                <Col md={3}>
+                <Col sm ={12} md={5}  lg={6} xl={5}>
                     <ListGroup variant ="flush">
                         <ListGroup.Item>
-                            <h3>{product.name}</h3>
+                            <h3 className = "productName">{product.name}</h3>
                         </ListGroup.Item>
 
                         <ListGroup.Item>
                             <Rating value ={product.rating} text = {`${product.numReviews} reviews`} color ={'#f8e825'} />
                         </ListGroup.Item>
 
-                        <ListGroup.Item>
-                            Price : ${product.price}
+                        <ListGroup.Item className = "text-danger b">
+                           Price : ${product.price}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
@@ -58,72 +59,74 @@ function ProductScreen({match,history}) {
 
 
                     </ListGroup>
-                </Col>
+                    <Row>
+                        <Col md={12} sm ={12}>
+                            <Card>
+                                <ListGroup variant = "flush">
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col>Price :</Col>
+                                            <Col>
+                                                <strong>${product.price}</strong>
+                                            
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
 
 
-                <Col md={3}>
-                    <Card>
-                        <ListGroup variant = "flush">
-                            <ListGroup.Item>
-                                <Row>
-                                    <Col>Price :</Col>
-                                    <Col>
-                                        <strong>${product.price}</strong>
-                                    
-                                    </Col>
-                                </Row>
-                            </ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col>Status :</Col>
+                                            <Col>
+                                                {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
+                                            
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
 
+                                    {product.countInStock > 0 && (
+                                        <ListGroup.Item>
+                                        <Row>
+                                            <Col>Qty :</Col>
+                                            <Col>
+                                                <select
+                                                className = "w-50  rounded"
+                                                value ={qty}
+                                                onChange = {(e) => setQty(e.target.value)}
+                                                >
+                                                    {
+                                                        [...Array(product.countInStock).keys()].map((x) => (
+                                                            <option key = {x+1} value ={x+1}>
+                                                                {x+1}
+                                                            </option>
+                                                        ))
+                                                    }
+                                                </select>                
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
 
-                            <ListGroup.Item>
-                                <Row>
-                                    <Col>Status :</Col>
-                                    <Col>
-                                        {product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}
-                                    
-                                    </Col>
-                                </Row>
-                            </ListGroup.Item>
+                                    )}
 
-                            {product.countInStock > 0 && (
-                                <ListGroup.Item>
-                                <Row>
-                                    <Col>Qty :</Col>
-                                    <Col xs = 'auto' className='my-1'>
-                                        <select
-                                        className = "w-100 rounded"
-                                        value ={qty}
-                                        onChange = {(e) => setQty(e.target.value)}
+                                    <ListGroup.Item>
+                                        <Button 
+                                        onClick={addToCartHandler}
+                                        className = "btn btn-gray w-100" 
+                                        disabled = {product.countInStock === 0} 
+                                        type ="button"
                                         >
-                                            {
-                                                [...Array(product.countInStock).keys()].map((x) => (
-                                                    <option key = {x+1} value ={x+1}>
-                                                        {x+1}
-                                                    </option>
-                                                ))
-                                            }
-                                        </select>                
-                                    </Col>
-                                </Row>
-                            </ListGroup.Item>
+                                            Add to Cart
+                                        </Button>
+                                    </ListGroup.Item>
 
-                            )}
+                                </ListGroup>
+                            </Card>
 
-                            <ListGroup.Item>
-                                <Button 
-                                onClick={addToCartHandler}
-                                className = "btn btn-gray w-100" 
-                                disabled = {product.countInStock === 0} 
-                                type ="button"
-                                >
-                                    Add to Cart
-                                </Button>
-                            </ListGroup.Item>
-
-                        </ListGroup>
-                    </Card>
-
+                        </Col>
+                    </Row>
                 </Col>
+
+
             </Row>
 
          )}
