@@ -1,8 +1,8 @@
-import React, { useState,useEffect} from 'react'
+import React, { useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Button} from 'react-bootstrap'
-import  {addToCart}  from '../actions/cartActions'
+import  {addToCart,removeFromCart}  from '../actions/cartActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 
@@ -24,12 +24,13 @@ function CartScreen({match,location,history}){
     const cart = useSelector(state=>state.cart)
     const {cartItems, loading ,error} = cart
 
-    const removeFromCart=(id)=>{
-        console.log("remove from cart",id)
+    const removeFromCartHandelar=(id)=>{
+        dispatch(removeFromCart(id))
+        
     }
 
     const checkoutHandeler=()=>{
-        history.push('/signin?redirect=cart')
+        history.push('/signin?redirect=shipping')
     }
 
     return(
@@ -79,7 +80,7 @@ function CartScreen({match,location,history}){
                                                 <Col md = {1}>
                                                     <Button 
                                                     variant = "light"
-                                                    onClick = {() => removeFromCart(item.product)}
+                                                    onClick = {() => removeFromCartHandelar(item.product)}
                                                     >
                                                         <i className = "fa fa-trash"></i>
                                                     </Button>
