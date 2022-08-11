@@ -1,7 +1,13 @@
 import React from 'react'
 import {Nav,Navbar,Container, FormControl, Form ,Button } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import  {addToCart,removeFromCart}  from '../actions/cartActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 function Header() {
+    const cart = useSelector(state=>state.cart)
+    const {cartItems, loading ,error} = cart
   return (
     <header>
         <Navbar className = "navItem" variant = "dark"  expand="xl" collapseOnSelect>
@@ -35,12 +41,15 @@ function Header() {
                         
                     </Nav>
                     <div className="d-flex"  text='dark'>
-                            <LinkContainer variant = "dark" to="/cart">
-                                <Navbar.Brand><i className = "fas fa-shopping-cart"></i>Cart</Navbar.Brand>
-                            </LinkContainer>
+                            
                                 
                             <LinkContainer to="/login">
                                 <Navbar.Brand><i className = "fas fa-user"></i>Login</Navbar.Brand>
+                            </LinkContainer>
+                            <LinkContainer variant = "dark" to="/cart">
+                                <Navbar.Brand>
+                                
+                                <i className = "fas fa-shopping-cart"><span className="cartCount">{cartItems.reduce((acc, item) =>  acc+item.qty ,0)}</span></i></Navbar.Brand>
                             </LinkContainer>
                         </div>
                     
