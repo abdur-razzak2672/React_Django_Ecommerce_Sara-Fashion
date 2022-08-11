@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view ,permission_classes
+from rest_framework.permissions import IsAuthenticated , IsAdminUser
 from .models import Product
 from .serializers import ProductSerializer ,UserSerializer ,UserSerializerWithToken
 #from .products import products
@@ -35,6 +36,7 @@ def getRoutes(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getUsersProfile(request):
     user = request.user
     serializer = UserSerializer(user , many=False)
