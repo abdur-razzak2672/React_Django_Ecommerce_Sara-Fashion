@@ -6,6 +6,16 @@ main{
 h3{
   padding: 1rem 0;
 }
+.Navbar{
+  text-transform: lowercase !important;
+}
+Navbar.Brand
+{
+  font-family: 'Lato', sans-serif;
+  color:grey;
+  font-size: 100px;
+  margin: 0px;
+}
 .rating span{
   margin : 0.1rem;
 }
