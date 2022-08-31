@@ -5,15 +5,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import  {addToCart,removeFromCart}  from '../actions/cartActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
-
-import gh from 'react-bootstrap/Offcanvas';
 import Offcanvas from 'react-bootstrap/Offcanvas'
+import { logout } from '../actions/userActions'
 
 
 
 function Header() {
     const cart = useSelector(state=>state.cart)
     const {cartItems, loading ,error} = cart
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const dispatch = useDispatch()
+
+    const logoutHandler = () => {
+        dispatch(logout())
+    }
 
 return (
     <>
@@ -29,12 +37,46 @@ return (
             </LinkContainer>
           </Nav>
           <Nav className="justify-content-end text-light flex-grow-1  pe-3">                   
-            <LinkContainer to="/register">
-                <Nav.Item><i className = "fa fa-key"></i> Register</Nav.Item>
-            </LinkContainer>
-            <LinkContainer to="/login">
-                <Nav.Item><i className = "fa fa-lock"></i> Login </Nav.Item>
-            </LinkContainer>
+          {userInfo ? (
+                <NavDropdown title={userInfo.name} id='username'>
+                    <LinkContainer to='/profile'>
+                        <NavDropdown.Item>Profile</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+
+                </NavDropdown>
+            ) : (
+              <Nav className="justify-content-end text-light flex-grow-1  pe-3">                   
+                <LinkContainer to="/register">
+                    <Nav.Item><i className = "fa fa-key"></i> Register</Nav.Item>
+                </LinkContainer>
+                <LinkContainer to="/login">
+                    <Nav.Item><i className = "fa fa-lock"></i> Login </Nav.Item>
+                </LinkContainer>
+              </Nav>
+
+                    
+                    
+                )}
+
+
+            {userInfo && userInfo.isAdmin && (
+                <NavDropdown title='Admin' id='adminmenue'>
+                    <LinkContainer to='/admin/userlist'>
+                        <NavDropdown.Item>Users</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <LinkContainer to='/admin/productlist'>
+                        <NavDropdown.Item>Products</NavDropdown.Item>
+                    </LinkContainer>
+
+                    <LinkContainer to='/admin/orderlist'>
+                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                    </LinkContainer>
+
+                </NavDropdown>
+            )}
           </Nav>
           
 
