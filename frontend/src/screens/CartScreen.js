@@ -5,6 +5,8 @@ import { Row, Col, Image, ListGroup, Button} from 'react-bootstrap'
 import  {addToCart,removeFromCart}  from '../actions/cartActions'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import MultiStepProgressBar from '../components/MultiStepProgressBar'
+import Stepper from '../components/Stepper'
 
 
 
@@ -30,11 +32,12 @@ function CartScreen({match,location,history}){
     }
 
     const checkoutHandeler=()=>{
-        history.push('/signin?redirect=shipping')
+        history.push('/login?redirect=shipping')
     }
 
     return(
         <div>
+            <MultiStepProgressBar step1/>
             {loading? <Loader />
             :error? <Message variant ='danger'>{error}</Message>
             :<Row>
