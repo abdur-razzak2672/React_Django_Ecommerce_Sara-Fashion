@@ -8,7 +8,10 @@ import MultiStepProgressBar from '../components/MultiStepProgressBar'
 
 function ShippingAddressScreen({ location, history }) {
     const cart = useSelector(state => state.cart)
-    const { shippingAddress } = cart
+    const { cartItems,shippingAddress } = cart
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
 
     const dispatch = useDispatch()
 
@@ -22,6 +25,17 @@ function ShippingAddressScreen({ location, history }) {
         dispatch(saveShippingAddress({ address, city, postalCode, country }))
         history.push('/payment')
     }
+
+    if (!userInfo) {
+        history.push('/login')
+    }
+    if (cartItems.length === 0) {
+        history.push('/cart')
+    }
+    console.log("cart",cartItems)
+
+    console.log("user",userInfo)
+
 
     return (
         <FormContainer>

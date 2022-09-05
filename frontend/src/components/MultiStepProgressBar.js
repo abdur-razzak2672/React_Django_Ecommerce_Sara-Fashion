@@ -1,13 +1,21 @@
 import React from 'react'
 import { Nav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 
 function MultiStProgressBar({ step1, step2, step3, step4 }) {
+
+    const cart = useSelector(state=>state.cart)
+    const {cartItems,shippingAddress } = cart
+
+
+    const dispatch = useDispatch()
+
 
     return (
         <div className='d-flex justify-content-center mb-4'>
             <Nav.Item className=''>
-                {step1 ? (
+                {cart ? (
                     <LinkContainer to='/cart'>
                         <Nav.Link className= "rounded-5 p-1 bg-success text-light" >CartItems</Nav.Link>
                     </LinkContainer>
