@@ -68,7 +68,7 @@ function PaymentMethodScreen({history}) {
                             >
                             </Form.Check>
                         </div>
-                        <div className='d-flex mt-3 justify-content-between'>
+                        <div className='coloum d-flex mt-3 justify-content-between'>
                             <div className = "d-flex ">
                                 <Image src = {nagad} fluid rounded width="50" height="50" />     
                                 <label className='ms-4'>Nagad</label>
